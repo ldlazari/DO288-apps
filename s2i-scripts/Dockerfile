@@ -11,8 +11,8 @@ FROM openshift/httpd:2.4
 #ENV OPENSHIFT_BUILD_NAME="bonjour-1" OPENSHIFT_BUILD_NAMESPACE="ldlazari-br-ibm-com-myquotes" OPENSHIFT_BUILD_SOURCE="https://github.com/ldlazari/DO288-apps" OPENSHIFT_BUILD_COMMIT="df3b8ad6eefac4bd02a56b3a6d164694e3c8535b"
 
 USER root
-COPY upload/scripts /tmp/scripts
-COPY upload/src /tmp/src
+COPY ./.s2i/bin /tmp/scripts
+COPY ./ /tmp/src
 RUN chown -R 1001:0 /tmp/scripts /tmp/src
 USER 1001
 RUN /tmp/scripts/assemble
