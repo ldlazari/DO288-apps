@@ -1,4 +1,5 @@
-FROM openshift/httpd:2.4
+#FROM openshift/httpd:2.4
+FROM rhscl/httpd-24-rhel7
 
 #LABEL "io.openshift.build.commit.author"="Luciano Dias Lázari <luciano.lazari@gmail.com>" \
 #      "io.openshift.build.commit.date"="Sat Sep 19 15:52:09 2020 -0300" \
@@ -14,7 +15,8 @@ USER root
 COPY ./.s2i/bin /tmp/scripts
 COPY ./ /tmp/src
 RUN chgrp -R 0 /tmp/scripts /tmp/src && \
-    chown -R 1001:0 /tmp/scripts /tmp/src
+    chown -R 1001:0 /tmp/scripts /tmp/src && \
+    chmod -R g=rwx /tmp/scripts
 USER 1001
 RUN /tmp/scripts/assemble
 CMD /tmp/scripts/run
