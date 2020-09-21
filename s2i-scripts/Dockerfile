@@ -13,7 +13,8 @@ FROM openshift/httpd:2.4
 USER root
 COPY ./.s2i/bin /tmp/scripts
 COPY ./ /tmp/src
-RUN chown -R 1001:0 /tmp/scripts /tmp/src
+RUN chgrp -R 0 /tmp/scripts /tmp/src && \
+    chown -R 1001:0 /tmp/scripts /tmp/src
 USER 1001
 RUN /tmp/scripts/assemble
 CMD /tmp/scripts/run
